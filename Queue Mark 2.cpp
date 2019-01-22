@@ -3,8 +3,8 @@
 #include <string>
 #include <sstream>
 #include <ctime>
-//#include "CounterA.h"
-#pragma warning(disable : 4996) //_CRT_SECURE_NO_WARNINGS
+#include "CounterA.h"
+#pragma warning(disable:4996)
 
 using namespace std;
 
@@ -21,7 +21,7 @@ void adminMenu();
 void counterA(); // counterA menu
 void counterB(); // counterB menu
 void counterC(); // counterC menu
-void ServingList();
+void ServingList(char c);
 
 
 
@@ -29,9 +29,6 @@ int countPG = 0, countSG = 0, countPA = 0, countPB = 0, countPC = 0, countSA = 0
 queue<string> qPG, qPA, qPB, qPC, qSG, qSA, qSB, qSC ; // these are the q containers
 char sCheck, pCheck, school;
 string Aserve, Bserve, Cserve, str, str1, str2;
-time_t now;
-//CounterA a;
-
 
 
 
@@ -43,17 +40,20 @@ int main() {
 }
 
 
-
-
 //Welcome menu
 
+	
 void welcome() {
-	char userInput;
 	bool check = true;
+	CounterA a("17:51", "18:00", "22Jan2019", "First", "000001", "EEE", "PG001", "General", "7mins");
+
+	cout << a.getStartWork() << endl;
+
+	char userInput;
 
 	do {
 		//current date/time based on current system
-		now = time(0);
+		time_t now = time(0);
 
 		//convert now to string form
 		//char * dt = ctime(&now);
@@ -71,7 +71,7 @@ void welcome() {
 	cout << "-----------Welcome--------------" << endl;
 
 	if (check == false) cout << "------------Incorrect Input. Please try again------------" << endl;
-	cout << "For Staff Members, Press S. (To Counter Menu) " << endl;
+	cout << "For Administrators, Press S. (To Counter Menu) " << endl;
 	cout << "For Public Users, press P. (To Queuing Menu) " << endl;
 	cout << endl << "Your Input: " << endl;
 	cin >> userInput;
@@ -186,8 +186,13 @@ void adminMenu() {
 
 void counterA()
 {
-	char choice;
-	bool x = true;
+	/*CounterA a("17:51","18:00", "22Jan2019", "First", "000001", "EEE", "PG001", "General", "7mins");
+
+	
+	cout << a.getStartWork();*/
+
+	char choice, c;
+	bool x;
 	cout << "--------------------------- Welcome to Counter A menu ------------------------------" << endl;
 	cout << " 0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o - Students - o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o" << endl;
 	cout << "[- General Problems   -] " << "                           " << "[- School A Problems  -]" << endl;
@@ -240,29 +245,31 @@ void counterA()
 		{
 			Aserve = qPA.front();
 			x = true;
-			
-
-			ServingList();
+			c = 'A';
+			ServingList(c);
 			
 		}
 		else if ((choice == '2') && (qPG.empty() != 1))
 		{
 			Aserve = qPG.front();
 			x = true;
-			ServingList();
+			c = 'A';
+			ServingList(c);
 			
 		}
 		else if ((choice == '3') && (qSA.empty() !=1))
 		{
 			Aserve = qSA.front();
 			x = true;
-			ServingList();
+			c = 'A';
+			ServingList(c);
 		}
 		else if ((choice == '4') && (qSG.empty() != 1))
 		{
 			Aserve = qSG.front();
 			x = true;
-			ServingList();
+			c = 'A';
+			ServingList(c);
 		}
 		else if (choice == '5')
 		{
@@ -287,7 +294,7 @@ void counterA()
 void counterB()
 {
 
-	char choice;
+	char choice, c;
 	bool x = true;
 	cout << "--------------------------- Welcome to Counter B menu ------------------------------" << endl;
 	cout << " 0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o - Students - o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o" << endl;
@@ -338,24 +345,28 @@ void counterB()
 		if ((choice == '1') && (qPB.empty() != 1))
 		{
 			Bserve = qPB.front();
-			ServingList();
+			c = 'B';
+			ServingList(c);
 
 		}
 		else if ((choice == '2') && (qPG.empty() !=1))
 		{
 			Bserve = qPG.front();
-			ServingList();
+			c = 'B';
+			ServingList(c);
 
 		}
 		else if ((choice == '3') && (qSB.empty() !=1))
 		{
 			Bserve = qSB.front();
-			ServingList();
+			c = 'B';
+			ServingList(c);
 		}
 		else if ((choice == '4') && (qSG.empty() !=1))
 		{
 			Bserve = qSG.front();
-			ServingList();
+			c = 'B';
+			ServingList(c);
 		}
 		else if (choice == '5')
 		{
@@ -375,7 +386,7 @@ void counterB()
 
 void counterC()
 {
-	char choice;
+	char choice, c;
 	bool x = false;
 	cout << "--------------------------- Welcome to Counter C menu ------------------------------" << endl;
 	cout << " 0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o - Students - o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o" << endl;
@@ -425,24 +436,30 @@ void counterC()
 		if ((choice == '1') && (qPC.empty() != 1))
 		{
 			Cserve = qPC.front();
-			ServingList();
+			c = 'C';
+			
+			ServingList(c);
 
 		}
 		else if ((choice == '2') && (qPG.empty() !=1))
 		{
 			Cserve = qPG.front();
-			ServingList();
+			c = 'C';
+			ServingList(c);
 
 		}
 		else if ((choice == '3') && (qSC.empty() !=1))
 		{
 			Cserve = qSC.front();
-			ServingList();
+			c = 'C';
+			ServingList(c);
 		}
 		else if ((choice == '4') && (qSG.empty() != 1))
 		{
 			Cserve = qSG.front();
-			ServingList();
+			c = 'C';
+		
+			ServingList(c);
 		}
 		else if (choice == '5')
 		{
@@ -465,23 +482,36 @@ void counterC()
 
 
 
-void ServingList()
+void ServingList(char c)
 {
 	char choice;
+	char x = c;
 	cout << " [ -------------------------------- Serving List -----------------------------------  ]" << endl;
 	cout << " 0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o0o" << endl;
 	cout << "[- Counter A -] " << "       "  << "[- Counter B -]" <<  "   " << "[- Counter C -]" << endl;
 	cout << "  " << Aserve << "           "  << Bserve << "                "   << Cserve <<  endl;
 	
+	
 	do
 	{
 		cout << "To go back, Enter B." << endl;
+		cout << "To key in Ad, Enter A." << endl;
 		cin >> choice;
+		
+		
+		//if they key in admin num,
+		// Counter A will be avail
+		//
 
 	} while (choice != 'b');
 
-	welcome();
-
+	//welcome();
+	if (x == 'A')
+		counterA();
+	else if (x == 'B')
+		counterB();
+	else if (x == 'C')
+		counterC();
 
 }
 
